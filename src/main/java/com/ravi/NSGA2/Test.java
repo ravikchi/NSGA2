@@ -7,48 +7,28 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Test {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        float f = 3.0f;
+        int intBits = Float.floatToIntBits(f);
+        int rawbits = Float.floatToRawIntBits(f);
 
-        double value = Double.parseDouble("1.0");
-        long binaryRadius = Double.doubleToLongBits(value);
-        String binary = Long.toBinaryString(binaryRadius);
-        if(binary.length() < 63){
-            binary = StringUtils.leftPad(binary, 63, "0");
-        }
+        System.out.println(intBits);
+        System.out.println(rawbits);
 
-        System.out.println(binary);
-        /*double radius = 20.0;
-        long binaryRadius = Double.doubleToLongBits(radius);
-        String radiusString = Long.toBinaryString(binaryRadius);
-        System.out.println(binaryRadius);
-        System.out.println(radiusString);
-        System.out.println(radiusString.length());
+        int sign     = intBits & 0x80000000;
+        int exponent = intBits & 0x7f800000;
+        int mantissa = intBits & 0x007fffff;
 
-        radius = 1.0;
-        binaryRadius = Double.doubleToLongBits(radius);
-        radiusString = Long.toBinaryString(binaryRadius);
-        System.out.println(binaryRadius);
-        System.out.println(radiusString);
 
-        StringBuilder result = new StringBuilder();
-        for(char c : radiusString.toCharArray()){
-            char val = c;
-            if(Math.random() < 0.05){
-                if(c == '1'){
-                    val = '0';
-                }else{
-                    val = '1';
-                }
-            }
+        System.out.printf("sign = %d  exponent = %d  mantissa = %d%n",
+                sign, exponent, mantissa);
 
-            result.append(val);
-        }
+        String binarySign = Integer.toBinaryString(sign);
+        String binaryExponent = Integer.toBinaryString(exponent);
+        String binaryMantissa = Integer.toBinaryString(mantissa);
 
-        System.out.println(result.toString());
-
-        long value = Long.parseLong(result.toString(), 2);
-        System.out.println(value);
-        System.out.println(Double.longBitsToDouble(binaryRadius));
-        System.out.println(Double.longBitsToDouble(value));*/
+        System.out.printf("binarySign     = %s%nbinaryExponent = %s%n" +
+                        "binaryMantissa = %s%n", binarySign,
+                binaryExponent, binaryMantissa);
     }
 }

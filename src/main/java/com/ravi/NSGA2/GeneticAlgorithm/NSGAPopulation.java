@@ -70,7 +70,7 @@ public class NSGAPopulation extends Population {
 
         population.setPopulation(individuals);
 
-        for(int i=0; i<100; i++) {
+        for(int i=0; i<1000; i++) {
             try {
                 System.out.println("Generation :"+i);
                 individuals = population.nextGeneration();
