@@ -70,7 +70,7 @@ public class CrowdingDistanceAssignment {
                 MultiObjectiveIndividual o2 = (MultiObjectiveIndividual) m2;
                 if(o1.objectiveFitness() == o2.objectiveFitness())
                     return 0;
-                return o1.objectiveFitness() > o2.objectiveFitness() ? -1 : 1;
+                return o1.objectiveFitness() < o2.objectiveFitness() ? -1 : 1;
             }
         });
     }

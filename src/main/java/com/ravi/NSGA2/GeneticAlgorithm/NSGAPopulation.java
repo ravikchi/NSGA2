@@ -27,8 +27,8 @@ public class NSGAPopulation extends Population {
         objectives.add(new MinT());
 
 
-        int geneSize = 63;
-        Converter converter = new DoubleBinaryConverter(geneSize);
+        int geneSize = 20;
+        Converter converter = new DecimalBinaryConverter(geneSize);
         double mutationRate = 1.0/(geneSize*2);
 
         CrossOverOperator crossOverOperator = new TwoPointCrossOver();
@@ -42,18 +42,18 @@ public class NSGAPopulation extends Population {
         Population population = new NSGAPopulation(gaOperators, nextGenSelector);
 
 
-        int size = 20;
+        int size = 100;
         population.setN(size);
         List<Individual> individuals = new ArrayList<Individual>();
         while(individuals.size() < size){
             List<Object> phenoType = new ArrayList<Object>();
 
-            double radius = RandomUtils.randomIntWithRange(1, 9);
+            double radius = RandomUtils.randomInRange(0, 10);
             String radiusStr = radius+"";
             System.out.println(radiusStr);
             phenoType.add(radiusStr);
 
-            double height = RandomUtils.randomIntWithRange(1, 19);
+            double height = RandomUtils.randomInRange(0, 20);
             String heightStr = height +"";
             System.out.println(heightStr);
             phenoType.add(heightStr);
@@ -70,7 +70,7 @@ public class NSGAPopulation extends Population {
 
         population.setPopulation(individuals);
 
-        for(int i=0; i<1000; i++) {
+        for(int i=0; i<100; i++) {
             try {
                 System.out.println("Generation :"+i);
                 individuals = population.nextGeneration();
