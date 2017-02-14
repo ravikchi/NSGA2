@@ -1,8 +1,8 @@
 package com.ravi.NSGA2.GeneticAlgorithm.NSGACode;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.Objective;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +43,8 @@ public class CrowdingDistanceAssignment {
             for(int i=1; i<l;i++){
                 MultiObjectiveIndividual Ii = (MultiObjectiveIndividual) population.get(i);
 
-                double iDistance = Ii.getiDistance() + ((m.getFitness(population.get(i+1)) - m.getFitness(population.get(i-1))) / (fMax - fMin));
+                //double iDistance = Ii.getiDistance() + ((m.getFitness(population.get(i+1)) - m.getFitness(population.get(i-1))) / (fMax - fMin));
+                double iDistance = Ii.getiDistance() + ((population.get(i+1).getFitness(m) - population.get(i-1).getFitness(m)) / (fMax - fMin));
                 Ii.setiDistance(iDistance);
             }
 

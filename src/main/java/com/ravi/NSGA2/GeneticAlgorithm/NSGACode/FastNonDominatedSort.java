@@ -1,8 +1,8 @@
 package com.ravi.NSGA2.GeneticAlgorithm.NSGACode;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.Objective;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +78,9 @@ public class FastNonDominatedSort {
 
     private boolean dominates(MultiObjectiveIndividual p, MultiObjectiveIndividual q){
         for(Objective o : objectives){
+           /* System.out.println(o.getName());
+            System.out.println(o.getFitness(p));
+            System.out.println(o.getFitness(q));*/
             if(o.getFitness(p) > o.getFitness(q)){
                 return false;
             }

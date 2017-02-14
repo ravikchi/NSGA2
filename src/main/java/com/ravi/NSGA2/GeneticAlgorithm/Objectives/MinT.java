@@ -1,6 +1,7 @@
 package com.ravi.NSGA2.GeneticAlgorithm.Objectives;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 
 import java.util.List;
 
@@ -8,6 +9,11 @@ import java.util.List;
  * Created by ravik on 12/02/2017.
  */
 public class MinT implements Objective {
+    @Override
+    public String getName() {
+        return null;
+    }
+
     @Override
     public double getFitness(Individual p) {
         List<Object> phenoType = p.getPhenoType();

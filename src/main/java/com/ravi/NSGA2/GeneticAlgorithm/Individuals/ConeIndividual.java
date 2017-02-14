@@ -1,7 +1,7 @@
 package com.ravi.NSGA2.GeneticAlgorithm.Individuals;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.Objective;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,8 @@ public class ConeIndividual extends MultiObjectiveIndividual {
     private Converter converter;
     private List<Objective> objectives = new ArrayList<Objective>();
 
+    private double volume = 0.0;
+
     public ConeIndividual(String chromosome, Converter converter, int geneSize) {
         this.chromosome = new StringBuilder(chromosome);
         this.converter = converter;
@@ -28,6 +30,28 @@ public class ConeIndividual extends MultiObjectiveIndividual {
         this.converter = converter;
         this.geneSize =geneSize;
         setVolume();
+    }
+
+
+
+    public void setVolume(){
+        List<Object> phenoType = getPhenoType();
+        double r = Double.parseDouble((String) phenoType.get(0));
+        double h = Double.parseDouble((String) phenoType.get(1));
+
+        double s = Math.sqrt((r*r)+(h*h));
+        double S = Math.PI * r * s;
+
+        volume = Math.PI / 3 * r * r * h;
+    }
+
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     public void setGeneSize(int geneSize) {

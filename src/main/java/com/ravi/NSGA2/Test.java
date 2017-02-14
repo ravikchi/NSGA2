@@ -1,5 +1,6 @@
 package com.ravi.NSGA2;
 
+import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MinCostIndividual;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
@@ -42,5 +43,6 @@ public class Test {
 
             System.out.println(random * diff + min);
         }
+
     }
 }

@@ -1,10 +1,12 @@
 package com.ravi.NSGA2.GeneticAlgorithm.Individuals;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.Objective;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ravik on 11/02/2017.
@@ -13,8 +15,8 @@ public abstract class MultiObjectiveIndividual implements Individual {
     private int rank=1000;
     private int np;
     private List<Individual> sp = new ArrayList<Individual>();
-    private double volume = 0.0;
     private Objective currentObjective;
+    private Map<Objective, Double> objectiveFitnessMap = new HashMap<Objective, Double>();
 
     private double iDistance;
 
@@ -41,6 +43,17 @@ public abstract class MultiObjectiveIndividual implements Individual {
     @Override
     public double getFitness() {
         return 1-rank;
+    }
+
+    public double getFitness(Objective o){
+        Double fitness = objectiveFitnessMap.get(o);
+        if(fitness == null){
+            fitness = o.getFitness(this);
+            objectiveFitnessMap.put(o, fitness);
+        }
+
+        //return fitness.doubleValue();
+        return o.getFitness(this);
     }
 
     public int getRank() {
@@ -81,17 +94,6 @@ public abstract class MultiObjectiveIndividual implements Individual {
 
     public void SpUnionQ(Individual q){
         this.sp.add(q);
-    }
-
-    public void setVolume(){
-        List<Object> phenoType = getPhenoType();
-        double r = Double.parseDouble((String) phenoType.get(0));
-        double h = Double.parseDouble((String) phenoType.get(1));
-
-        double s = Math.sqrt((r*r)+(h*h));
-        double S = Math.PI * r * s;
-
-        volume = Math.PI / 3 * r * r * h;
     }
 
 }

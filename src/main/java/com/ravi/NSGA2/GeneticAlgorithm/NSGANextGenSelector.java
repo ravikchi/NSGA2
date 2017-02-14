@@ -2,9 +2,9 @@ package com.ravi.NSGA2.GeneticAlgorithm;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
 import com.ravi.GenericGA.GeneticAlgorithm.NextGenSelector;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.CrowdingDistanceAssignment;
 import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.FastNonDominatedSort;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.Objective;
 
 import java.util.*;
 

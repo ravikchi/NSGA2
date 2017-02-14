@@ -5,27 +5,29 @@ import com.ravi.GenericGA.GeneticAlgorithm.Exceptions.GAException;
 import com.ravi.GenericGA.GeneticAlgorithm.impl.CrossOver.TwoPointCrossOver;
 import com.ravi.GenericGA.GeneticAlgorithm.impl.MutationOpe.BitWiseMutate;
 import com.ravi.GenericGA.Utils.RandomUtils;
+import com.ravi.NSGA2.GeneticAlgorithm.Converters.DecimalBinaryConverter;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.ConeIndividual;
 import com.ravi.NSGA2.GeneticAlgorithm.Objectives.MinS;
 import com.ravi.NSGA2.GeneticAlgorithm.Objectives.MinT;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.Objective;
+import com.ravi.NSGA2.GeneticAlgorithm.Selectors.CrowdingSelector;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by ravik on 12/02/2017.
  */
-public class NSGAPopulation extends Population {
-    public NSGAPopulation(GAOperators operators, NextGenSelector nextGenOperator) {
+public class ConeProblemPopulation extends Population {
+    public ConeProblemPopulation(GAOperators operators, NextGenSelector nextGenOperator) {
         super(operators, nextGenOperator);
     }
 
-    public static void runAlgorithm(){
+    public static void runAlgorithm(int populationSize, double crossOverPerc, double mutationPerc, int numberOfGen){
         List<Objective> objectives = new ArrayList<Objective>();
         objectives.add(new MinS());
         objectives.add(new MinT());
-
 
         int geneSize = 20;
         Converter converter = new DecimalBinaryConverter(geneSize);
@@ -39,13 +41,14 @@ public class NSGAPopulation extends Population {
         NextGenSelector nextGenSelector = nSGANextGenSelector;
 
         GAOperators gaOperators = new GAOperators(crossOverOperator, mutationOperator, selectionOperator);
-        Population population = new NSGAPopulation(gaOperators, nextGenSelector);
+        gaOperators.setCrossOverRate(crossOverPerc);
+        gaOperators.setMutationRate(mutationPerc);
+        Population population = new ConeProblemPopulation(gaOperators, nextGenSelector);
 
 
-        int size = 100;
-        population.setN(size);
+        population.setN(populationSize);
         List<Individual> individuals = new ArrayList<Individual>();
-        while(individuals.size() < size){
+        while(individuals.size() < populationSize){
             List<Object> phenoType = new ArrayList<Object>();
 
             double radius = RandomUtils.randomInRange(0, 10);
@@ -70,7 +73,7 @@ public class NSGAPopulation extends Population {
 
         population.setPopulation(individuals);
 
-        for(int i=0; i<100; i++) {
+        for(int i=0; i<numberOfGen; i++) {
             try {
                 System.out.println("Generation :"+i);
                 individuals = population.nextGeneration();
@@ -85,6 +88,16 @@ public class NSGAPopulation extends Population {
             population.setPopulation(individuals);
         }
 
+        Collections.sort(individuals, new Comparator<Individual>(){
+            public int compare(Individual m1, Individual m2){
+                ConeIndividual o1 = (ConeIndividual) m1;
+                ConeIndividual o2 = (ConeIndividual) m2;
+                if(o1.getVolume() == o2.getVolume())
+                    return 0;
+                return o1.getVolume() < o2.getVolume() ? -1 : 1;
+            }
+        });
+
         for(Individual i: individuals){
             List<Object> phenoType = i.getPhenoType();
             double r = Double.parseDouble((String) phenoType.get(0));
@@ -96,12 +109,16 @@ public class NSGAPopulation extends Population {
 
             double T = B+S;
 
+            System.out.println("r : "+ r);
+            System.out.println("h : "+ h);
+
             System.out.println("S : "+ S);
             System.out.println("T : "+ T);
 
             double V = Math.PI / 3 * r * r * h;
 
             System.out.println("Volume : "+ V);
+            System.out.println("Fitness :"+i.getFitness());
 
             System.out.println();
             System.out.println();

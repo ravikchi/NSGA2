@@ -1,4 +1,4 @@
-package com.ravi.NSGA2.GeneticAlgorithm;
+package com.ravi.NSGA2.GeneticAlgorithm.Converters;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
