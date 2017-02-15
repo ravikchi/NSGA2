@@ -81,6 +81,9 @@ public class CostMinPopulation extends Population {
         System.out.println("SA,V,C,L,Shape,Material");
 
         for(Individual p : getPopulation()) {
+            /*if(p.getFitness() < -1){
+                continue;
+            }*/
             List<Object> phenoType = p.getPhenoType();
             double shape = Double.parseDouble((String) phenoType.get(2));
             double x = Double.parseDouble((String) phenoType.get(0));
@@ -100,7 +103,8 @@ public class CostMinPopulation extends Population {
             output.append((int)c + ",");
             output.append(length + ",");
             output.append(getShape((int) (shape * 6)) + ",");
-            output.append(getMat((int) (3 * mat)));
+            output.append(getMat((int) (3 * mat))+",");
+            output.append(p.getFitness());
 
 
             System.out.println(output.toString());

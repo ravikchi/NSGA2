@@ -3,10 +3,7 @@ package com.ravi.NSGA2.GeneticAlgorithm.Individuals;
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
 import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by ravik on 11/02/2017.
@@ -14,7 +11,7 @@ import java.util.Map;
 public abstract class MultiObjectiveIndividual implements Individual {
     private int rank=1000;
     private int np;
-    private List<Individual> sp = new ArrayList<Individual>();
+    private Set<Individual> sp = new HashSet<Individual>();
     private Objective currentObjective;
     private Map<Objective, Double> objectiveFitnessMap = new HashMap<Objective, Double>();
 
@@ -42,7 +39,7 @@ public abstract class MultiObjectiveIndividual implements Individual {
 
     @Override
     public double getFitness() {
-        return 1-rank;
+        return -1*rank;
     }
 
     public double getFitness(Objective o){
@@ -80,11 +77,11 @@ public abstract class MultiObjectiveIndividual implements Individual {
         this.np = 0;
     }
 
-    public List<Individual> getSp() {
+    public Set<Individual> getSp() {
         return sp;
     }
 
-    public void setSp(List<Individual> sp) {
+    public void setSp(Set<Individual> sp) {
         this.sp = sp;
     }
 
