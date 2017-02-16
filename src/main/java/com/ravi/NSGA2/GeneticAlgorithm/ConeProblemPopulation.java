@@ -35,7 +35,7 @@ public class ConeProblemPopulation extends Population {
 
         CrossOverOperator crossOverOperator = new TwoPointCrossOver();
         MutationOperator mutationOperator = new BitWiseMutate(mutationRate);
-        NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives);
+        NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives, null,null);
 
         SelectionOperator selectionOperator = new CrowdingSelector();
         NextGenSelector nextGenSelector = nSGANextGenSelector;

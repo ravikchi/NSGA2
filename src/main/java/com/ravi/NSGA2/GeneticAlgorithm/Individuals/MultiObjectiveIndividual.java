@@ -11,7 +11,7 @@ import java.util.*;
 public abstract class MultiObjectiveIndividual implements Individual {
     private int rank=1000;
     private int np;
-    private Set<Individual> sp = new HashSet<Individual>();
+    private List<Individual> sp = new ArrayList<Individual>();
     private Objective currentObjective;
     private Map<Objective, Double> objectiveFitnessMap = new HashMap<Objective, Double>();
 
@@ -39,7 +39,7 @@ public abstract class MultiObjectiveIndividual implements Individual {
 
     @Override
     public double getFitness() {
-        return -1*rank;
+        return 1-rank;
     }
 
     public double getFitness(Objective o){
@@ -77,16 +77,16 @@ public abstract class MultiObjectiveIndividual implements Individual {
         this.np = 0;
     }
 
-    public Set<Individual> getSp() {
+    public List<Individual> getSp() {
         return sp;
     }
 
-    public void setSp(Set<Individual> sp) {
+    public void setSp(List<Individual> sp) {
         this.sp = sp;
     }
 
     public void clearSp(){
-        this.sp.clear();
+        this.sp = new ArrayList<Individual>();
     }
 
     public void SpUnionQ(Individual q){

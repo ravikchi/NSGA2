@@ -5,15 +5,14 @@ import com.ravi.GenericGA.GeneticAlgorithm.*;
 import com.ravi.GenericGA.GeneticAlgorithm.Exceptions.GAException;
 import com.ravi.NSGA2.GeneticAlgorithm.Converters.RealValueConverter;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MinCostIndividual;
+import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.CrowdingDistanceAssignment;
+import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.FastNonDominatedSort;
 import com.ravi.NSGA2.GeneticAlgorithm.Objectives.*;
 import com.ravi.NSGA2.GeneticAlgorithm.Operators.RealValueCrossOver;
 import com.ravi.NSGA2.GeneticAlgorithm.Operators.RealValueMutation;
 import com.ravi.NSGA2.GeneticAlgorithm.Selectors.CrowdingSelector;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by rc16956 on 14/02/2017.
@@ -24,6 +23,7 @@ public class CostMinPopulation extends Population {
     }
 
     public static void runAlgorithm(int populationSize, double crossOverPerc, double mutationPerc, int numberOfGen){
+        Calendar start = Calendar.getInstance();
         List<Objective> objectives = new ArrayList<Objective>();
         objectives.add(new MinCost());
         objectives.add(new MaxSurfaceArea());
@@ -33,7 +33,9 @@ public class CostMinPopulation extends Population {
 
         CrossOverOperator crossOverOperator = new RealValueCrossOver();
         MutationOperator mutationOperator = new RealValueMutation();
-        NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives);
+        FastNonDominatedSort sort = new FastNonDominatedSort(objectives);
+        CrowdingDistanceAssignment assignment = new CrowdingDistanceAssignment(objectives);
+        NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives, sort, assignment);
 
         SelectionOperator selectionOperator = new CrowdingSelector();
         NextGenSelector nextGenSelector = nSGANextGenSelector;
@@ -73,12 +75,30 @@ public class CostMinPopulation extends Population {
             population.setPopulation(individuals);
         }
 
+        Calendar end = Calendar.getInstance();
+
         population.printStatistics();
+
+        System.out.println("Total time taken by Sort : "+ sort.getTotalTime()/1000 +"s");
+        System.out.println("Total time taken setup CrowdingDistance : "+ assignment.getTotalTime()/1000 +"s");
+        System.out.println("Total time to run full algo : "+(end.getTimeInMillis()-start.getTimeInMillis())/1000+"s");
     }
 
     @Override
     public void printStatistics() {
         System.out.println("SA,V,C,L,Shape,Material");
+
+        Collections.sort(getPopulation(), new Comparator<Individual>(){
+            public int compare(Individual o1, Individual o2){
+                if(Double.parseDouble((String) o1.getPhenoType().get(3)) == Double.parseDouble((String) o2.getPhenoType().get(3))) {
+                    if(Double.parseDouble((String) o1.getPhenoType().get(2)) == Double.parseDouble((String) o2.getPhenoType().get(2))) {
+                        return 0;
+                    }
+                    return Double.parseDouble((String) o1.getPhenoType().get(2)) > Double.parseDouble((String) o2.getPhenoType().get(2)) ? -1 : 1;
+                }
+                return Double.parseDouble((String) o1.getPhenoType().get(3)) > Double.parseDouble((String) o2.getPhenoType().get(3)) ? -1 : 1;
+            }
+        });
 
         for(Individual p : getPopulation()) {
             /*if(p.getFitness() < -1){

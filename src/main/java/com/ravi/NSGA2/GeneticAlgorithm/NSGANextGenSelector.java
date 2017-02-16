@@ -17,10 +17,10 @@ public class NSGANextGenSelector implements NextGenSelector {
     FastNonDominatedSort fastNonDominatedSort;
     CrowdingDistanceAssignment crowdingDistanceAssignment;
 
-    public NSGANextGenSelector(List<Objective> objectives) {
+    public NSGANextGenSelector(List<Objective> objectives, FastNonDominatedSort fastNonDominatedSort, CrowdingDistanceAssignment crowdingDistanceAssignment) {
         this.objectives = objectives;
-        fastNonDominatedSort = new FastNonDominatedSort(objectives);
-        crowdingDistanceAssignment = new CrowdingDistanceAssignment(objectives);
+        this.fastNonDominatedSort = fastNonDominatedSort;
+        this.crowdingDistanceAssignment = crowdingDistanceAssignment;
     }
 
     @Override

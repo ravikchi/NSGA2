@@ -4,10 +4,7 @@ import com.ravi.GenericGA.GeneticAlgorithm.Individual;
 import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ravik on 12/02/2017.
@@ -16,12 +13,18 @@ public class CrowdingDistanceAssignment {
     private List<Objective> objectives = new ArrayList<Objective>();
     private double fMax = Double.NEGATIVE_INFINITY;
     private double fMin = Double.POSITIVE_INFINITY;
+    private long totalTime = 0;
 
     public CrowdingDistanceAssignment(List<Objective> objectives) {
         this.objectives = objectives;
     }
 
+    public long getTotalTime() {
+        return totalTime;
+    }
+
     public void calculateCrowdingDistance(List<Individual> individuals){
+        Calendar start = Calendar.getInstance();
         List<Individual> population = new ArrayList<Individual>();
         population.addAll(individuals);
         int l = population.size()-1;
@@ -49,6 +52,10 @@ public class CrowdingDistanceAssignment {
             }
 
         }
+
+        Calendar end = Calendar.getInstance();
+
+        totalTime = totalTime + (end.getTimeInMillis() - start.getTimeInMillis());
     }
 
     private void sortPopulation(Objective m, List<Individual> population){
