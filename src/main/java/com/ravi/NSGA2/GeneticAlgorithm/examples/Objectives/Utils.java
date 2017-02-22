@@ -1,4 +1,4 @@
-package com.ravi.NSGA2.GeneticAlgorithm.Objectives;
+package com.ravi.NSGA2.GeneticAlgorithm.examples.Objectives;
 
 /**
  * Created by rc16956 on 14/02/2017.

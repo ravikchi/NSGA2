@@ -1,7 +1,8 @@
-package com.ravi.NSGA2.GeneticAlgorithm.Individuals;
+package com.ravi.NSGA2.GeneticAlgorithm.examples;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
 import com.ravi.GenericGA.GeneticAlgorithm.Objective;
+import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
 
 import java.util.ArrayList;
 import java.util.List;

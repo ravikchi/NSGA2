@@ -2,7 +2,7 @@ package com.ravi.NSGA2.GeneticAlgorithm.Converters;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
-import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MinCostIndividual;
+import com.ravi.NSGA2.GeneticAlgorithm.examples.MinCostIndividual;
 
 import java.util.List;
 

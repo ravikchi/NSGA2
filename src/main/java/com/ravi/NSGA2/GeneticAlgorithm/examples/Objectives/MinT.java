@@ -1,4 +1,4 @@
-package com.ravi.NSGA2.GeneticAlgorithm.Objectives;
+package com.ravi.NSGA2.GeneticAlgorithm.examples.Objectives;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
 import com.ravi.GenericGA.GeneticAlgorithm.Objective;

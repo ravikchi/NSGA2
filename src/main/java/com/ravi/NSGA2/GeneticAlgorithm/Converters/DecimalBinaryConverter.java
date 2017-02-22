@@ -2,7 +2,7 @@ package com.ravi.NSGA2.GeneticAlgorithm.Converters;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
-import com.ravi.NSGA2.GeneticAlgorithm.Individuals.ConeIndividual;
+import com.ravi.NSGA2.GeneticAlgorithm.examples.ConeIndividual;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;

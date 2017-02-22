@@ -1,6 +1,7 @@
-package com.ravi.NSGA2.GeneticAlgorithm.Individuals;
+package com.ravi.NSGA2.GeneticAlgorithm.examples;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
+import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Objects;
 /**
  * Created by rc16956 on 14/02/2017.
  */
-public class MinCostIndividual extends MultiObjectiveIndividual{
+public class MinCostIndividual extends MultiObjectiveIndividual {
     private StringBuilder chromosome;
     private List<Object> phenoType = new ArrayList<Object>();
     private int geneSize;

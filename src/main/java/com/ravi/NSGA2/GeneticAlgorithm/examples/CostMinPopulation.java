@@ -1,13 +1,13 @@
-package com.ravi.NSGA2.GeneticAlgorithm;
+package com.ravi.NSGA2.GeneticAlgorithm.examples;
 
 
 import com.ravi.GenericGA.GeneticAlgorithm.*;
 import com.ravi.GenericGA.GeneticAlgorithm.Exceptions.GAException;
 import com.ravi.NSGA2.GeneticAlgorithm.Converters.RealValueConverter;
-import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MinCostIndividual;
+import com.ravi.NSGA2.GeneticAlgorithm.NSGANextGenSelector;
 import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.CrowdingDistanceAssignment;
 import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.FastNonDominatedSort;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.*;
+import com.ravi.NSGA2.GeneticAlgorithm.examples.Objectives.*;
 import com.ravi.NSGA2.GeneticAlgorithm.Operators.RealValueCrossOver;
 import com.ravi.NSGA2.GeneticAlgorithm.Operators.RealValueMutation;
 import com.ravi.NSGA2.GeneticAlgorithm.Selectors.CrowdingSelector;

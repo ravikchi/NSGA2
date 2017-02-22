@@ -1,4 +1,4 @@
-package com.ravi.NSGA2.GeneticAlgorithm;
+package com.ravi.NSGA2.GeneticAlgorithm.examples;
 
 import com.ravi.GenericGA.GeneticAlgorithm.*;
 import com.ravi.GenericGA.GeneticAlgorithm.Exceptions.GAException;
@@ -6,11 +6,11 @@ import com.ravi.GenericGA.GeneticAlgorithm.impl.CrossOver.TwoPointCrossOver;
 import com.ravi.GenericGA.GeneticAlgorithm.impl.MutationOpe.BitWiseMutate;
 import com.ravi.GenericGA.Utils.RandomUtils;
 import com.ravi.NSGA2.GeneticAlgorithm.Converters.DecimalBinaryConverter;
-import com.ravi.NSGA2.GeneticAlgorithm.Individuals.ConeIndividual;
+import com.ravi.NSGA2.GeneticAlgorithm.NSGANextGenSelector;
 import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.CrowdingDistanceAssignment;
 import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.FastNonDominatedSort;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.MinS;
-import com.ravi.NSGA2.GeneticAlgorithm.Objectives.MinT;
+import com.ravi.NSGA2.GeneticAlgorithm.examples.Objectives.MinS;
+import com.ravi.NSGA2.GeneticAlgorithm.examples.Objectives.MinT;
 import com.ravi.NSGA2.GeneticAlgorithm.Selectors.CrowdingSelector;
 
 import java.util.ArrayList;
