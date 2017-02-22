@@ -7,6 +7,8 @@ import com.ravi.GenericGA.GeneticAlgorithm.impl.MutationOpe.BitWiseMutate;
 import com.ravi.GenericGA.Utils.RandomUtils;
 import com.ravi.NSGA2.GeneticAlgorithm.Converters.DecimalBinaryConverter;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.ConeIndividual;
+import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.CrowdingDistanceAssignment;
+import com.ravi.NSGA2.GeneticAlgorithm.NSGACode.FastNonDominatedSort;
 import com.ravi.NSGA2.GeneticAlgorithm.Objectives.MinS;
 import com.ravi.NSGA2.GeneticAlgorithm.Objectives.MinT;
 import com.ravi.NSGA2.GeneticAlgorithm.Selectors.CrowdingSelector;
@@ -35,7 +37,7 @@ public class ConeProblemPopulation extends Population {
 
         CrossOverOperator crossOverOperator = new TwoPointCrossOver();
         MutationOperator mutationOperator = new BitWiseMutate(mutationRate);
-        NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives, null,null);
+        NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives, new FastNonDominatedSort(objectives),new CrowdingDistanceAssignment(objectives));
 
         SelectionOperator selectionOperator = new CrowdingSelector();
         NextGenSelector nextGenSelector = nSGANextGenSelector;

@@ -43,11 +43,7 @@ public class FastNonDominatedSort {
                     continue;
                 }
                 MultiObjectiveIndividual q = (MultiObjectiveIndividual) j;
-                if(dominates(p, q)){
-                    p.SpUnionQ(q);
-                }else if(dominates(q, p)){
-                    p.incNp();
-                }
+                dominates(p, q);
             }
 
             if(p.getNp() == 0){
@@ -102,16 +98,21 @@ public class FastNonDominatedSort {
         }
     }
 
-    private boolean dominates(MultiObjectiveIndividual p, MultiObjectiveIndividual q){
+    private void dominates(MultiObjectiveIndividual p, MultiObjectiveIndividual q){
+        boolean pDominates = true;
+        boolean qDominates = true;
         for(Objective o : objectives){
-           /* System.out.println(o.getName());
-            System.out.println(o.getFitness(p));
-            System.out.println(o.getFitness(q));*/
             if(p.getFitness(o) > q.getFitness(o)){
-                return false;
+                pDominates = false;
+            }else if(q.getFitness(o) > p.getFitness(o)){
+                qDominates = false;
             }
         }
 
-        return true;
+        if(pDominates){
+            p.SpUnionQ(q);
+        }else if(qDominates){
+            p.incNp();
+        }
     }
 }

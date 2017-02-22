@@ -49,8 +49,8 @@ public abstract class MultiObjectiveIndividual implements Individual {
             objectiveFitnessMap.put(o, fitness);
         }
 
-        //return fitness.doubleValue();
-        return o.getFitness(this);
+        return fitness.doubleValue();
+        //return o.getFitness(this);
     }
 
     public int getRank() {
