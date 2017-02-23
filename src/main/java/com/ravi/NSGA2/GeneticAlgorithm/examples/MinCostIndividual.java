@@ -1,6 +1,7 @@
 package com.ravi.NSGA2.GeneticAlgorithm.examples;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
 
 import java.util.ArrayList;
@@ -19,13 +20,11 @@ public class MinCostIndividual extends MultiObjectiveIndividual {
     public MinCostIndividual(String chromosome, Converter converter) {
         this.chromosome = new StringBuilder();
         this.chromosome.append(chromosome);
-        this.geneSize = geneSize;
         this.converter = converter;
     }
 
     public MinCostIndividual(List<Object> phenoType, Converter converter) {
         this.phenoType = phenoType;
-        this.geneSize = geneSize;
         this.converter = converter;
     }
 
@@ -68,5 +67,18 @@ public class MinCostIndividual extends MultiObjectiveIndividual {
     @Override
     public Converter getConverter() {
         return converter;
+    }
+
+
+    @Override
+    public double getFitness(Objective o) {
+        Double fitness = objectiveFitnessMap.get(o);
+        if(fitness == null){
+            fitness = o.getFitness(this);
+            objectiveFitnessMap.put(o, fitness);
+        }
+
+        return fitness.doubleValue();
+        //return o.getFitness(this);
     }
 }

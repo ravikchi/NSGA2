@@ -7,11 +7,12 @@ import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by ravik on 12/02/2017.
  */
-public class FastNonDominatedSort {
+public class FastNonDominatedSort{
     List<Objective> objectives = new ArrayList<Objective>();
     Front front;
     long totalTime = 0;
@@ -28,10 +29,29 @@ public class FastNonDominatedSort {
         this.totalTime = totalTime;
     }
 
+    private void calculateObjectiveFitness(List<Individual> P){
+        CountDownLatch latch = new CountDownLatch(objectives.size());
+
+        for(Objective m : objectives){
+            FindObjectiveFitness fitness = new FindObjectiveFitness(m, latch, P);
+            Thread t = new Thread(fitness);
+            t.start();
+        }
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sort(List<Individual> P){
         Calendar start = Calendar.getInstance();
         Front front = new Front();
         int n =0;
+
+        calculateObjectiveFitness(P);
+
         for(Individual i : P){
             MultiObjectiveIndividual p = (MultiObjectiveIndividual) i;
             p.resetNp();
@@ -58,6 +78,8 @@ public class FastNonDominatedSort {
         /*if(front.isEmpty()){
             firstFrontEmpty(P);
         }*/
+
+        n = front.getElements().size();
 
         Front fi = front;
         int i = 1;

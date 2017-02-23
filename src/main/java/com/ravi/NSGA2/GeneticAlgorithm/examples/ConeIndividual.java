@@ -98,4 +98,15 @@ public class ConeIndividual extends MultiObjectiveIndividual {
     public Converter getConverter() {
         return converter;
     }
+
+    @Override
+    public double getFitness(Objective o) {
+        Double fitness = objectiveFitnessMap.get(o);
+        if(fitness == null){
+            fitness = o.getFitness(this);
+            objectiveFitnessMap.put(o, fitness);
+        }
+
+        return fitness.doubleValue();
+    }
 }

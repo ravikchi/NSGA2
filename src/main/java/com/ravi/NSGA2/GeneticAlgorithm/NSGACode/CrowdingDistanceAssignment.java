@@ -5,6 +5,7 @@ import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.NSGA2.GeneticAlgorithm.Individuals.MultiObjectiveIndividual;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by ravik on 12/02/2017.
@@ -25,7 +26,7 @@ public class CrowdingDistanceAssignment {
 
     public void calculateCrowdingDistance(List<Individual> individuals){
         Calendar start = Calendar.getInstance();
-        List<Individual> population = new ArrayList<Individual>();
+        /*List<Individual> population = new ArrayList<Individual>();
         population.addAll(individuals);
         int l = population.size()-1;
 
@@ -51,6 +52,20 @@ public class CrowdingDistanceAssignment {
                 Ii.setiDistance(iDistance);
             }
 
+        }*/
+
+        CountDownLatch latch = new CountDownLatch(objectives.size());
+
+        for(Objective m : objectives){
+            ObjectiveCrowDist dist = new ObjectiveCrowDist(individuals, m, latch);
+            Thread t = new Thread(dist);
+            t.start();
+        }
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         Calendar end = Calendar.getInstance();

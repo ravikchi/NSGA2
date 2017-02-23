@@ -8,12 +8,13 @@ import java.util.*;
 /**
  * Created by ravik on 11/02/2017.
  */
-public abstract class MultiObjectiveIndividual implements Individual {
+public abstract class MultiObjectiveIndividual implements Individual{
     private int rank=1000;
     private int np;
     private List<Individual> sp = new ArrayList<Individual>();
     private Objective currentObjective;
-    private Map<Objective, Double> objectiveFitnessMap = new HashMap<Objective, Double>();
+    protected Map<Objective, Double> objectiveFitnessMap = new HashMap<Objective, Double>();
+    protected List<Objective> objectives;
 
     private double iDistance;
 
@@ -42,16 +43,7 @@ public abstract class MultiObjectiveIndividual implements Individual {
         return 1-rank;
     }
 
-    public double getFitness(Objective o){
-        Double fitness = objectiveFitnessMap.get(o);
-        if(fitness == null){
-            fitness = o.getFitness(this);
-            objectiveFitnessMap.put(o, fitness);
-        }
-
-        return fitness.doubleValue();
-        //return o.getFitness(this);
-    }
+    public abstract double getFitness(Objective o);
 
     public int getRank() {
         return rank;
@@ -93,4 +85,15 @@ public abstract class MultiObjectiveIndividual implements Individual {
         this.sp.add(q);
     }
 
+    public List<Objective> getObjectives() {
+        return objectives;
+    }
+
+    public void setObjectives(List<Objective> objectives) {
+        this.objectives = objectives;
+    }
+
+    public Map<Objective, Double> getObjectiveFitnessMap() {
+        return objectiveFitnessMap;
+    }
 }
