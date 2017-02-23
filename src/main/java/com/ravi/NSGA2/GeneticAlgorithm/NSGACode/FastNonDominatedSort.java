@@ -12,8 +12,8 @@ import java.util.concurrent.CountDownLatch;
 /**
  * Created by ravik on 12/02/2017.
  */
-public class FastNonDominatedSort{
-    List<Objective> objectives = new ArrayList<Objective>();
+public abstract class FastNonDominatedSort{
+    protected List<Objective> objectives = new ArrayList<Objective>();
     Front front;
     long totalTime = 0;
 
@@ -29,21 +29,7 @@ public class FastNonDominatedSort{
         this.totalTime = totalTime;
     }
 
-    private void calculateObjectiveFitness(List<Individual> P){
-        CountDownLatch latch = new CountDownLatch(objectives.size());
-
-        for(Objective m : objectives){
-            FindObjectiveFitness fitness = new FindObjectiveFitness(m, latch, P);
-            Thread t = new Thread(fitness);
-            t.start();
-        }
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    protected abstract void calculateObjectiveFitness(List<Individual> P);
 
     public void sort(List<Individual> P){
         Calendar start = Calendar.getInstance();

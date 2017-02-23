@@ -33,7 +33,7 @@ public class CostMinPopulation extends Population {
 
         CrossOverOperator crossOverOperator = new RealValueCrossOver();
         MutationOperator mutationOperator = new RealValueMutation();
-        FastNonDominatedSort sort = new FastNonDominatedSort(objectives);
+        FastNonDominatedSort sort = new SortCostMin(objectives);
         CrowdingDistanceAssignment assignment = new CrowdingDistanceAssignment(objectives);
         NSGANextGenSelector nSGANextGenSelector = new NSGANextGenSelector(objectives, sort, assignment);
 
