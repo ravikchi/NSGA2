@@ -18,11 +18,11 @@ public abstract class MultiObjectiveIndividual implements Individual{
 
     private double iDistance;
 
-    public double getiDistance() {
+    public synchronized double getiDistance() {
         return iDistance;
     }
 
-    public void setiDistance(double iDistance) {
+    public synchronized void setiDistance(double iDistance) {
         this.iDistance = iDistance;
     }
 
